@@ -1,0 +1,88 @@
+name:                yayhaskell
+version:             0.1.0.0
+github:              "githubuser/yayhaskell"
+license:             BSD3
+author:              "Author name here"
+maintainer:          "example@example.com"
+copyright:           "2020 Author name here"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/yayhaskell#readme>
+
+dependencies:
+- aeson
+- async
+- base >= 4.7 && < 5
+- bytestring
+- Cabal
+- chronos
+- containers
+- cryptonite
+- file-embed
+- http-client
+- http-client-tls
+- jwt
+- lucid
+- postgresql-simple
+- random
+- servant
+- servant-client
+- servant-lucid
+- servant-server
+- template-haskell
+- text
+- time
+- time >= 1.9.1
+- wai
+- warp
+
+library:
+  source-dirs: src
+  default-extensions:
+  - DataKinds
+  - DeriveAnyClass
+  - DeriveFunctor
+  - DeriveGeneric
+  - DerivingStrategies
+  - DuplicateRecordFields
+  - GeneralizedNewtypeDeriving
+  - InstanceSigs
+  - LambdaCase
+  - OverloadedStrings
+  - QuasiQuotes
+  - RankNTypes
+  - RecordWildCards
+  - TemplateHaskell
+  - TypeOperators
+
+executables:
+  yayhaskell-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - yayhaskell
+
+tests:
+  yayhaskell-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - yayhaskell

@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "animate-css-grid": "^1.4.3"
+  }
+}

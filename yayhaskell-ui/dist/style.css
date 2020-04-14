@@ -1,0 +1,248 @@
+:root {
+    font-size: 16px;
+    --text-primary: #5c5085;
+    --text-secondary: #ececec;
+    --bg-primary: #5c5085;
+    --bg-secondary: #8f4e8b;
+    --bg-tertiary: #453a62;
+    --transition-speed: 600ms;
+}
+
+body {
+    color: var(--text-primary);
+    background-color: ivory;
+    margin: 0;
+    padding: 0;
+}
+
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+}
+
+main {
+    margin-left: 5rem;
+    padding: 1rem;
+    transition: margin-left var(--transition-speed) ease;
+}
+
+.navbar {
+    position: fixed;
+    background-color: ivory;
+    transition: width var(--transition-speed) ease;
+    overflow: hidden;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-item {
+    width: 100%;
+}
+
+.nav-item:last-child {
+    margin-top: auto;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition-speed);
+}
+
+.nav-link:hover {
+    filter: grayscale(0%) opacity(1);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.link-text {
+    display: none;
+    margin-left: 1rem;
+}
+
+.nav-link svg {
+    width: 2rem;
+    min-width: 2rem;
+    margin: 0 1.5rem;
+}
+
+.fa-primary {
+    color: var(--bg-secondary);
+}
+
+.fa-secondary {
+    color: var(--bg-primary);
+}
+
+.fa-primary, .fa-secondary {
+    transition: var(--transition-speed);
+}
+
+.logo {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    font-size: 1.5rem;
+    letter-spacing: 0.3ch;
+    width: 100%;
+}
+
+.logo svg {
+    transform: rotate(0deg);
+    transition: var(--transition-speed);
+}
+
+.logo-text {
+    display: inline;
+    position: absolute;
+    left: -999px;
+    transition: var(--transition-speed);
+}
+
+.navbar:hover .logo svg {
+    transform: rotate(-180deg);
+}
+
+/* Grid */
+.grid-container {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(3, auto);
+    grid-auto-rows: auto;
+    grid-auto-flow: dense;
+    background-color: ivory;
+    color: #444;
+}
+
+.grid-item {
+    padding: 1rem;
+    transition: all 5s ease;
+}
+
+.active-grid-item {
+    grid-column: span 3;
+    grid-row: span 3;
+}
+
+.a {
+    background-color: green;
+}
+
+.b {
+    background-color: blue;
+}
+
+.c {
+    background-color: purple;
+}
+
+.d {
+    background-color: orange;
+}
+
+.e {
+    background-color: red;
+}
+
+.f {
+    background-color: yellow;
+}
+
+.g {
+    background-color: lime;
+}
+
+.h {
+    background-color: pink;
+}
+
+.i {
+    background-color: turquoise;
+}
+
+.news-container {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(4, [col] auto ) ;
+    grid-template-rows: repeat(3, [row] auto  );
+    background-color: #fff;
+    color: #444;
+}
+
+.news-item {
+    background-color: #444;
+    color: #fff;
+    padding: 1rem;
+    font-size: 150%;
+}
+
+/* Small screens */
+
+@media only screen and (max-width: 600px) {
+    .navbar {
+        bottom: 0;
+        width: 100vw;
+        height: 5rem;
+    }
+    .logo {
+        display: none;
+    }
+    .navbar-nav {
+        flex-direction: row;
+    }
+    .nav-link {
+        justify-content: center;
+    }
+    main {
+        margin: 0;
+    }
+}
+
+/* Large screens */
+
+@media only screen and (min-width: 600px) {
+    .navbar {
+        top: 0;
+        width: 5rem;
+        height: 100vh;
+    }
+    .navbar:hover {
+        width: 16rem;
+    }
+
+    .navbar:hover + main {
+        margin-left: 16rem;
+    }
+
+    .navbar:hover .link-text {
+        display: inline;
+    }
+    .navbar:hover .logo svg {
+        margin-left: 11rem;
+    }
+    .navbar:hover .logo-text {
+        left: 0px;
+    }
+}

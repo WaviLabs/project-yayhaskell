@@ -1,0 +1,1 @@
+yayhaskell.com/about should be the About page.
