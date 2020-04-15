@@ -28,23 +28,25 @@ type State =
 
 type Query = Const Void
 
-type Message = Boolean
+type Input   = Boolean
+type Message = Unit
 
 data Action = Toggle
-            -- | MessageIsActive Message
+            | RecieveInput Input
 
-component :: forall f i o m. H.Component HH.HTML f i Message m
+component :: forall f i o m. H.Component HH.HTML f Input Message m
 component =
   H.mkComponent
     { initialState
     , render
     , eval: H.mkEval $ H.defaultEval
         { handleAction = handleAction
+        , receive = receive
         }
     }
 
-initialState :: forall i. i -> State
-initialState _ = { isActive: false, posts: []  }
+initialState :: forall i. Input -> State
+initialState input = { isActive: input, posts: [] }
 
 renderPost post =
     HH.div
@@ -66,7 +68,6 @@ render state = case state.isActive of
         HH.div
             [ HP.classes [ClassName "grid-item", ClassName "d"]
             , HE.onClick \_ -> Just Toggle
-            -- , HE.onClick \_ -> Just $ MessageIsActive state.isActive
             ]
             [ HH.p
                 []
@@ -74,9 +75,8 @@ render state = case state.isActive of
             ]
     true  ->
         HH.div
-            [ HP.classes [ClassName "grid-item", ClassName "d", ClassName "active-grid-item"]
+            [ HP.classes [ClassName "grid-center"]
             , HE.onClick \_ -> Just Toggle
-            -- , HE.onClick \_ -> Just $ MessageIsActive state.isActive
             ]
             if state.posts == [] then [ HH.p [] [HH.text "No Posts"]] else map renderPost state.posts
 
@@ -84,12 +84,9 @@ handleAction :: forall m. Action -> H.HalogenM State Action () Message m Unit
 handleAction = case _ of
   Toggle -> do
     H.modify_ (\oldState -> oldState { isActive = not oldState.isActive })
-    state <- H.get
-    H.raise state.isActive
---   MessageIsActive isActive -> H.raise isActive
+    H.raise unit
+  RecieveInput input -> do
+    H.modify_ (\oldState -> oldState { isActive = input })
 
--- handleQuery :: forall o m a. Query a -> H.HalogenM State Action () o m (Maybe a)
--- handleQuery = case _ of
---   GetState k -> do
---     state <- H.get
---     pure (Just (k state))
+receive :: Input -> Maybe Action
+receive input = Just $ RecieveInput input

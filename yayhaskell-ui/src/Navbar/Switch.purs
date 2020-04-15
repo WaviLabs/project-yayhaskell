@@ -21,11 +21,9 @@ moonSvg = """<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusabl
 className :: forall r i. String -> HH.IProp r i
 className = HH.attr (HH.AttrName "class")
 
-type Slot = H.Slot Query Message
+data Query a = Const Void
 
-data Query a = IsLight (State -> a)
-
-data Message = Toggled Boolean
+data Message = Toggled
 
 data Action = Toggle
 
@@ -41,7 +39,6 @@ component =
     , render
     , eval: H.mkEval $ H.defaultEval
         { handleAction = handleAction
-        , handleQuery = handleQuery
         }
     }
 
@@ -74,10 +71,4 @@ handleAction :: forall m. Action -> H.HalogenM State Action () Message m Unit
 handleAction = case _ of
   Toggle -> do
     newState <- H.modify \st -> st { isLight = not st.isLight }
-    H.raise (Toggled newState.isLight)
-
-handleQuery :: forall m a. Query a -> H.HalogenM State Action () Message m (Maybe a)
-handleQuery = case _ of
-  IsLight k -> do
-    val <- H.get
-    pure (Just (k val))
+    H.raise Toggled

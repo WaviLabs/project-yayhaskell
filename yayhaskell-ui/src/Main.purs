@@ -2,7 +2,9 @@ module Main where
 
 import Prelude
 
+import Control.Coroutine as CR
 import Data.Maybe (maybe)
+import Effect.Class (liftEffect)
 import Effect (Effect)
 import Effect.Aff (Aff, error, throwError)
 import Halogen.Aff (awaitBody, selectElement, runHalogenAff)
@@ -19,7 +21,11 @@ main :: Effect Unit
 main =
     runHalogenAff do
       body <- awaitBody
-      _ <- runUI Navbar.component unit body
+      io <- runUI Navbar.component unit body
+      io.subscribe $ CR.consumer \_ -> do
+        liftEffect toggleViewMode
+        pure $ Just unit
+
       _ <- runUI Grid.component unit body
       _ <- runUI (Script.component Script.html) unit body
       pure unit

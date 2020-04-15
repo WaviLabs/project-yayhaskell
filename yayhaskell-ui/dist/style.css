@@ -37,6 +37,9 @@ main {
     position: fixed;
     background-color: ivory;
     transition: width var(--transition-speed) ease;
+    -moz-box-shadow:    3px 0 5px 0 #555;
+    -webkit-box-shadow: 3px 0 5px 0 #555;
+    box-shadow:         3px 0 5px 0 #555;
     overflow: hidden;
 }
 
@@ -127,75 +130,100 @@ main {
 
 /* Grid */
 .grid-container {
+    height: 90vh;
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(3, auto);
-    grid-auto-rows: auto;
-    grid-auto-flow: dense;
+
+    grid-template-areas:
+        'a b c d'
+        'e x x f'
+        'g x x h'
+        'i j k l';
+
+    grid-template-columns: 240px auto auto 240px;
+    grid-template-rows: repeat(4, 25%);
     background-color: ivory;
     color: #444;
 }
 
-.grid-item {
-    padding: 1rem;
-    transition: all 5s ease;
+@keyframes gridItemEntrance {
+    from {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
 }
 
-.active-grid-item {
-    grid-column: span 3;
-    grid-row: span 3;
+.grid-item {
+    padding: 1rem;
+    background-color: darkslategray;
+    transition: all .4s ease-in-out;
+    /* animation: gridItemEntrance 700ms ease-out;
+    animation-fill-mode: backwards; */
+}
+
+.grid-item:hover {
+    transform: scale(1.02);
+    -moz-box-shadow:    3px 3px 5px 0 #555;
+    -webkit-box-shadow: 3px 3px 5px 0 #555;
+    box-shadow:         3px 3px 5px 0 #555;
+}
+
+.grid-center {
+    background-color: darkslategray;
+    padding: 1rem;
+    grid-area: x;
 }
 
 .a {
-    background-color: green;
+    grid-area: a;
 }
 
 .b {
-    background-color: blue;
+    grid-area: b;
 }
 
 .c {
-    background-color: purple;
+    grid-area: c;
 }
 
 .d {
-    background-color: orange;
+    grid-area: d;
 }
 
 .e {
-    background-color: red;
+    grid-area: e;
 }
 
 .f {
-    background-color: yellow;
+    grid-area: f;
 }
 
 .g {
-    background-color: lime;
+    grid-area: g;
 }
 
 .h {
-    background-color: pink;
+    grid-area: h;
 }
 
 .i {
-    background-color: turquoise;
+    grid-area: i;
 }
 
-.news-container {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(4, [col] auto ) ;
-    grid-template-rows: repeat(3, [row] auto  );
-    background-color: #fff;
-    color: #444;
+.j {
+    grid-area: j;
 }
 
-.news-item {
-    background-color: #444;
-    color: #fff;
-    padding: 1rem;
-    font-size: 150%;
+.k {
+    grid-area: k;
+}
+
+.l {
+    grid-area: l;
 }
 
 /* Small screens */

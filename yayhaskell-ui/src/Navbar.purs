@@ -37,18 +37,19 @@ className = HH.attr (HH.AttrName "class")
 
 data Action
   = HandleSwitch Switch.Message
-  | CheckButtonState
 
 type State = { switchState :: Maybe Switch.State }
 
+data Message = ViewModeToggled
+
 type ChildSlots =
-  ( switch :: Switch.Slot Unit
+  ( switch :: H.Slot Switch.Query Switch.Message Int
   )
 
 _switch :: SProxy "switch"
 _switch = SProxy
 
-component :: forall q i o m. H.Component HH.HTML q i o m
+component :: forall q i m. H.Component HH.HTML q i Message m
 component =
   H.mkComponent
     { initialState
@@ -75,18 +76,15 @@ render state =
             <>
             [ HH.li
                 [HP.class_ $ ClassName "nav-item"]
-                [HH.slot _switch unit Switch.component unit (Just <<< HandleSwitch)]
+                [HH.slot _switch 1 Switch.component unit (\msg -> Just $ HandleSwitch msg)]
             ]
         )
     ]
 
-handleAction ::forall o m. Action -> H.HalogenM State Action ChildSlots o m Unit
+handleAction ::forall m. Action -> H.HalogenM State Action ChildSlots Message m Unit
 handleAction = case _ of
-  HandleSwitch (Switch.Toggled _) -> do
-    pure unit
-  CheckButtonState -> do
-    switchState <- H.query _switch unit $ H.request Switch.IsLight
-    H.modify_ (_ { switchState = switchState })
+  HandleSwitch Switch.Toggled -> do
+    H.raise ViewModeToggled
 
 renderListHeader x =
     HH.li
