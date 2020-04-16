@@ -6,8 +6,10 @@ import Data.Maybe (Maybe(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML (ClassName(..), HTML, IProp)
+import Effect.Class (liftEffect, class MonadEffect)
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
+import Effect.Console as Console
 
 -- Code For SVG Icons --
 import Svg.Renderer.Halogen (icon)
@@ -32,7 +34,7 @@ type State = { isLight  :: Boolean
              , darkSvg  :: String
              }
 
-component :: forall i m. H.Component HH.HTML Query i Message m
+component :: forall i m. MonadEffect m => H.Component HH.HTML Query i Message m
 component =
   H.mkComponent
     { initialState
@@ -67,8 +69,9 @@ render state =
           [HH.text modeText]
       ]
 
-handleAction :: forall m. Action -> H.HalogenM State Action () Message m Unit
+handleAction :: forall m. MonadEffect m => Action -> H.HalogenM State Action () Message m Unit
 handleAction = case _ of
   Toggle -> do
-    newState <- H.modify \st -> st { isLight = not st.isLight }
+    H.modify_ \st -> st { isLight = not st.isLight }
+    liftEffect $ Console.log "Hello from switch. Talking to navbar."
     H.raise Toggled
