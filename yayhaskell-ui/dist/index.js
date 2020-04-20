@@ -8147,7 +8147,7 @@ var PS = {};
       if (!state.isActive) {
           return Halogen_HTML_Elements.div([ Halogen_HTML_Properties.classes([ "grid-item" ]), Halogen_HTML_Events.onClick(function (v) {
               return new Data_Maybe.Just(Toggle.value);
-          }) ])([ Halogen_HTML_Elements.h1([  ])([ Halogen_HTML_Core.text("Latest News") ]), Icon.mkIcon(svg)([ Icon.className("news-icon") ]) ]);
+          }) ])([ Halogen_HTML_Elements.h1([  ])([ Halogen_HTML_Core.text("Read News") ]), Icon.mkIcon(svg)([ Icon.className("news-icon") ]) ]);
       };
       if (state.isActive) {
           return Halogen_HTML_Elements.div([ Halogen_HTML_Properties.classes([ "grid-item-center" ]), Halogen_HTML_Events.onClick(function (v) {
@@ -8479,7 +8479,8 @@ var PS = {};
   var Halogen_HTML_Elements = $PS["Halogen.HTML.Elements"];
   var Halogen_HTML_Events = $PS["Halogen.HTML.Events"];
   var Halogen_HTML_Properties = $PS["Halogen.HTML.Properties"];
-  var Halogen_Query_HalogenM = $PS["Halogen.Query.HalogenM"];                
+  var Halogen_Query_HalogenM = $PS["Halogen.Query.HalogenM"];
+  var Icon = $PS["Icon"];                
   var Toggle = (function () {
       function Toggle() {
 
@@ -8496,6 +8497,7 @@ var PS = {};
       };
       return RecieveInput;
   })();
+  var svg = "<svg height=\"200px\" width=\"200px\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"video\" class=\"svg-inline--fa fa-video fa-w-18\" role=\"img\" viewBox=\"0 0 576 512\"><path fill=\"currentColor\" d=\"M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z\"/></svg>";
   var renderPost = function (dictShow) {
       return function (post) {
           return Halogen_HTML_Elements.div([ Halogen_HTML_Properties.class_("news-item") ])([ Halogen_HTML_Elements.a([ Halogen_HTML_Properties.class_("post-title"), Halogen_HTML_Properties.href(post.link) ])([ Halogen_HTML_Core.text(post.author) ]), Halogen_HTML_Elements.a([ Halogen_HTML_Properties.class_("post-comment-link"), Halogen_HTML_Properties.href(post.commentLink) ])([ Halogen_HTML_Core.text("comments") ]), Halogen_HTML_Elements.p([ Halogen_HTML_Properties.class_("post-lambdas") ])([ Halogen_HTML_Core.text("Lambdas: " + Data_Show.show(dictShow)(post.lambdas)) ]) ]);
@@ -8505,7 +8507,7 @@ var PS = {};
       if (!state.isActive) {
           return Halogen_HTML_Elements.div([ Halogen_HTML_Properties.classes([ "grid-item" ]), Halogen_HTML_Events.onClick(function (v) {
               return new Data_Maybe.Just(Toggle.value);
-          }) ])([ Halogen_HTML_Elements.p([  ])([ Halogen_HTML_Core.text("Click to Expand") ]) ]);
+          }) ])([ Halogen_HTML_Elements.h1([  ])([ Halogen_HTML_Core.text("Watch Videos") ]), Icon.mkIcon(svg)([ Icon.className("fix-icon") ]) ]);
       };
       if (state.isActive) {
           return Halogen_HTML_Elements.div([ Halogen_HTML_Properties.classes([ "grid-item-center" ]), Halogen_HTML_Events.onClick(function (v) {
@@ -8526,7 +8528,7 @@ var PS = {};
               return Data_Functor.map(Data_Functor.functorArray)(renderPost(Data_Show.showInt))(state.posts);
           })());
       };
-      throw new Error("Failed pattern match at Grid.D (line 66, column 16 - line 81, column 102): " + [ state.isActive.constructor.name ]);
+      throw new Error("Failed pattern match at Grid.D (line 67, column 16 - line 84, column 102): " + [ state.isActive.constructor.name ]);
   };
   var receive = function (input) {
       return Data_Maybe.Just.create(new RecieveInput(input));
@@ -8564,7 +8566,7 @@ var PS = {};
               return $13;
           });
       };
-      throw new Error("Failed pattern match at Grid.D (line 84, column 16 - line 89, column 59): " + [ v.constructor.name ]);
+      throw new Error("Failed pattern match at Grid.D (line 87, column 16 - line 92, column 59): " + [ v.constructor.name ]);
   };
   var component = Halogen_Component.mkComponent({
       initialState: initialState,

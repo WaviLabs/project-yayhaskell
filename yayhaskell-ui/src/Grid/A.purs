@@ -75,7 +75,7 @@ render state = case state.isActive of
             ]
             [ HH.h1
                 []
-                [HH.text "Latest News"]
+                [HH.text "Read News"]
             , Icon.mkIcon svg
                 [Icon.className "news-icon"]
             ]
