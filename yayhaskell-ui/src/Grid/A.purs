@@ -70,7 +70,7 @@ render :: forall m. State -> H.ComponentHTML Action () m
 render state = case state.isActive of
     false ->
         HH.div
-            [ HP.classes [ClassName "grid-item", ClassName "a"]
+            [ HP.classes [ClassName "grid-item"]
             , HE.onClick \_ -> Just Toggle
             ]
             [ HH.h1
@@ -81,7 +81,7 @@ render state = case state.isActive of
             ]
     true  ->
         HH.div
-            [ HP.classes [ClassName "grid-center"]
+            [ HP.classes [ClassName "grid-item-center"]
             , HE.onClick \_ -> Just Toggle
             ]
             if state.posts == [] then [HH.h1 [] [HH.text "No Posts"]] else map renderPost state.posts
